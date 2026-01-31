@@ -1,11 +1,18 @@
-import { Component, type ChangeEvent } from "react";
+import {
+  Component,
+  type ChangeEvent,
+  type HTMLInputTypeAttribute,
+} from "react";
 import styles from "./param-editor.module.scss";
+
+export type ParamType = "string";
 
 export interface Param {
   id: number;
   name: string;
-  // type: 'string';
+  type: ParamType;
 }
+
 interface ParamValue {
   paramId: number;
   value: string;
@@ -56,6 +63,13 @@ export class ParamEditor extends Component<Props, State> {
     return value?.value;
   }
 
+  private getInputType(paramType: ParamType): HTMLInputTypeAttribute {
+    if (paramType === "string") {
+      return "text";
+    }
+    return "text";
+  }
+
   render() {
     return (
       <section className={styles.paramEditor}>
@@ -66,18 +80,9 @@ export class ParamEditor extends Component<Props, State> {
             name={param.name}
             defaultValue={this.getDefaultValue(param.id)}
             onChange={this.handleChange.bind(this)}
+            type={this.getInputType(param.type)}
           />
         ))}
-
-        <button
-          onClick={() => {
-            const result = this.getModel();
-            console.log(result.paramValues);
-            return result;
-          }}
-        >
-          Get Model
-        </button>
       </section>
     );
   }
@@ -88,8 +93,10 @@ interface ILabledInputProps {
   name: string;
   defaultValue?: string;
   onChange: (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => void;
+  type: HTMLInputTypeAttribute;
 }
 class LabledInput extends Component<ILabledInputProps> {
+  getInputType() {}
   render() {
     return (
       <div className={styles.param}>
@@ -97,7 +104,7 @@ class LabledInput extends Component<ILabledInputProps> {
         <input
           id={`${this.props.id}`}
           onChange={(e) => this.props.onChange(e)}
-          type="text"
+          type={this.props.type}
           defaultValue={this.props.defaultValue}
           name={this.props.name}
         />

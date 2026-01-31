@@ -1,29 +1,33 @@
 import { it, describe, expect } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { ParamEditor } from "./param-editor";
+import { ParamEditor, type Model, type Param } from "./param-editor";
 
 describe("Param editor tests", async () => {
   const getMockData = () => {
-    const params = [
+    const params: Param[] = [
       {
         id: 1,
         name: "Назначение",
+        type: "string",
       },
       {
         id: 2,
         name: "Длина",
+        type: "string",
       },
       {
         id: 3,
         name: "Материал",
+        type: "string",
       },
       {
         id: 4,
         name: "Состояние",
+        type: "string",
       },
     ];
 
-    const model = {
+    const model: Model = {
       paramValues: [
         {
           paramId: 1,
