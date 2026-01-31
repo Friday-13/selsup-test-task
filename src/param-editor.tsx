@@ -73,6 +73,7 @@ export class ParamEditor extends Component<Props, State> {
           onClick={() => {
             const result = this.getModel();
             console.log(result.paramValues);
+            return result;
           }}
         >
           Get Model

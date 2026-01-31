@@ -1,5 +1,5 @@
 import { it, describe, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { ParamEditor } from "./param-editor";
 
 describe("Param editor tests", async () => {
@@ -71,5 +71,18 @@ describe("Param editor tests", async () => {
     });
   });
 
-  it("Returns correct model from getModel after changes", () => {});
+  it("Returns correct model from getModel after changes", () => {
+    const { model, params } = getMockData();
+    const editor = new ParamEditor({ model, params });
+    render(editor.render());
+    params.forEach(({ id, name }) => {
+      const input = screen.getByLabelText(name) as HTMLInputElement;
+      fireEvent.change(input, { target: { value: `new value ${id}` } });
+    });
+
+    const updatedModel = editor.getModel();
+    updatedModel.paramValues.forEach(({ value, paramId }) => {
+      expect(value).toBe(`new value ${paramId}`);
+    });
+  });
 });
