@@ -6,3 +6,10 @@
   max-width: 900px;
   margin: auto;
 }
+
+.param {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}

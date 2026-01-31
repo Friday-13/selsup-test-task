@@ -59,20 +59,15 @@ export class ParamEditor extends Component<Props, State> {
   render() {
     return (
       <section className={styles.paramEditor}>
-        {this.props.params.map((param) => {
-          return (
-            <>
-              <label htmlFor={`${param.id}`}>{param.name}</label>
-              <input
-                id={`${param.id}`}
-                onChange={(e) => this.handleChange(e)}
-                type="text"
-                defaultValue={this.getDefaultValue(param.id)}
-                name={param.name}
-              />
-            </>
-          );
-        })}
+        {this.props.params.map((param) => (
+          <LabledInput
+            key={`param-${param.id}`}
+            id={param.id}
+            name={param.name}
+            defaultValue={this.getDefaultValue(param.id)}
+            onChange={this.handleChange.bind(this)}
+          />
+        ))}
 
         <button
           onClick={() => {
@@ -83,6 +78,29 @@ export class ParamEditor extends Component<Props, State> {
           Get Model
         </button>
       </section>
+    );
+  }
+}
+
+interface ILabledInputProps {
+  id: number;
+  name: string;
+  defaultValue?: string;
+  onChange: (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => void;
+}
+class LabledInput extends Component<ILabledInputProps> {
+  render() {
+    return (
+      <div className={styles.param}>
+        <label htmlFor={`${this.props.id}`}>{this.props.name}</label>
+        <input
+          id={`${this.props.id}`}
+          onChange={(e) => this.props.onChange(e)}
+          type="text"
+          defaultValue={this.props.defaultValue}
+          name={this.props.name}
+        />
+      </div>
     );
   }
 }
