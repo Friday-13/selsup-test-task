@@ -18,7 +18,7 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     alias,
-    // setupFiles: ["./src/tests/setup.ts", "./src/tests/__mocks__/store.ts"],
+    setupFiles: ["./src/setup-tests.ts",],
     coverage: {
       provider: "v8",
       exclude: [
