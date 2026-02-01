@@ -22,6 +22,7 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       exclude: [
+         "**/*.module.scss",
         "./src/vite-env.d.ts",
         "./eslint.config.js",
         "./vite.config.ts",
